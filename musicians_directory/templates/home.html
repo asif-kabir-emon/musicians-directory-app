@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Musician{% endblock %}
+
+{% block content %}
+<div class="my-5">
+    <h1>Album List</h1>
+    <div class="mt-4" style="width: 100%; overflow-x: auto;">
+        {% if data %}
+        <table class="table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Musician Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Album Rating</th>
+                    <th scope="col">Instrument Type</th>
+                    <th scope="col">Album Name</th>
+                    <th scope="col">Release Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for album in data %}
+                <tr>
+                    <th scope="row">{{album.id}}</th>
+                    <td>{{album.artist.first_name}} {{album.artist.last_name}}</td>
+                    <td>{{album.artist.email}}</td>
+                    <td>{{album.rating}}</td>
+                    <td>{{album.artist.instrument_type}}</td>
+                    <td>{{album.name}}</td>
+                    <td>{{album.release_date}}</td>
+                    <td>
+                        <a href="{% url 'edit_album' album.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_album' album.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="fs-5 my-5">No albums found</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
